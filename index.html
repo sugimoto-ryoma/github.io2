@@ -1,326 +1,90 @@
 <!DOCTYPE html>
-<html lang="ja" dir="ltr">
-
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
-    <!--css-->
-    <link rel="stylesheet" type="text/css" href="">
-    <link rel="stylesheet" href="./style.css">
-    <!--font-awesome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <!--js-->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
-    <!--Swiper-->
-    <link rel="stylesheet" href="dist/css/swiper.css">
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>float left</title>
+<!-- write your code here -->
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script src="float left.js?1599635950785"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("A24189F37F8F3C47B0C81A7E48317DE3");
+	var lib=comp.getLibrary();
+	handleComplete({},comp);
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	exportRoot = new lib.floatleft();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;            
+			stage.tickOnUpdate = false;            
+			stage.update();            
+			stage.tickOnUpdate = true;		
+		}
+	}
+	makeResponsive(false,'both',false,1);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
 </head>
-
-<body>
-    <div class="wrap">
-        <header>
-            <nav class="inner header-contents">
-                <ul id="menu">
-                    <li><a href="">News</a></li>
-                    <li><a href="">Service</a></li>
-                    <li><a href="">Results</a></li>
-                    <li><a href="">Price</a></li>
-                    <li><a href="">Comments</a></li>
-                    <li><a href="">FAQs</a></li>
-                    <li class="menu1"><a href="">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="header-text">
-                <h1>詩が生れて、画ができる。<br>とかくに人の世は住みにくい。</h1>
-                <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                <button>お問い合わせしてみる</button>
-            </div>
-        </header>
-        <div class="News-section">
-            <div class="News-container">
-                <div class="News-item">
-                    <h2>News</h2>
-                    <div class="News-contents">
-                        <p class="News-text1">2019-02-01</p>
-                        <a href="">テキスト</a>
-                        <p class="News-text2">ニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュースニュース</p>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="News-contents">
-                        <p class="News-text1">2019-02-01</p>
-                        <a href="">テキスト</a>
-                        <p class="News-text2">ニュースニュースニュースニュースニュースニュースニュース</p>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="News-contents ex">
-                        <p class="News-text1">2019-02-01</p>
-                        <a href="">テキスト</a>
-                        <p class="News-text2">ニュースニュースニュースニュースニュースニュースニュース</p>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <button>MORE</button>
-                </div>
-            </div>
-        </div> 
-        <div class="service inner">
-            <h2>Service</h2>
-            <div class="service-section">
-                <div class="service-item">
-                    <i class="fas fa-desktop"></i>
-                    <h3>WEB<br>DESIGN</h3>
-                    <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-film"></i>
-                    <h3>WEB<br>CODING</h3>
-                    <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                </div>
-                <div class="service-item">
-                    <i class="fas fa-camera-retro"></i>
-                    <h3>CMS<br>CUSTOMIZE</h3>
-                    <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                </div>
-            </div>
-        </div>      
-        <div class="main-contents">
-            <div class="result">
-                <div class="result-item">
-                    <h2>Results</h2>
-                    <div class="swiper-parent">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper01">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper02">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper03">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper03">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper03">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="img/slide1.png" alt="Swiper03">
-                                    <h3>とかくに人の世は住みにくい。</h3>
-                                    <p>どこへ越しても住みにくいと悟った時、詩が生れて 、画が出来る。意地を通せば窮屈だ。</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination swiper-pagination-white"></div>
-                    </div>
-                </div>
-                <button>VIEW ALL</button>
-            </div>
-            <div class="Price-section">
-                <h2>Price</h2>
-                <table>
-                    <tr class="items">
-                        <td class="item1">row1</td>
-                        <td class="item2">Price ¥10,000</td>
-                    </tr>
-                    <tr class="items">
-                        <td class="item1">row1</td>
-                        <td class="item2">Price ¥10,000</td>
-                    </tr>
-                    <tr class="items">
-                        <td class="item1">row1</td>
-                        <td class="item2">Price ¥10,000</td>
-                    </tr>
-                </table>
-                <p>※ 上記料金はサンプルです。</p>
-            </div>
-            <div class="comments-section">
-                <div class="comments">
-                    <div class="comments-item2">
-                        <h2>Comments</h2>
-                    
-                        <div class="comments-item">
-                            <img src="img/comments1.png" alt="">
-                            <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                        </div>
-                        <div class="comments-item">
-                            <img src="img/comments2.png" alt="">
-                            <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。意地を通せば窮屈だ。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="comments-img">
-                    <img src="img/comments3.png" alt="">
-                </div>
-            </div>
-            <div class="black-section">
-            </div>
-        </div>
-        <div class="QA-section">
-            <div class="QA-item">
-                <h2>Q&A</h2>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-                <div class="QA-items">
-                    <div class="QA-list">
-                        <p class="Q">質問質問質問？</p>
-                        <i id="QQ" class="fas fa-plus"></i>
-                    </div>
-                    <div class="A">
-                        <p>回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答回答</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="access-section">
-            <div class="Access-block">
-                <div class="Access-item">
-                    <h2>Access</h2>
-                    <p>〒106-6126<br>東京都港区六本木 6丁目 10-1<br>六本木ヒルズ森タワー</p>
-                    <button>Google Maps</button>
-                </div>
-            </div>
-            <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=" width="720" height="515" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-        </div>
-        <div class="contact-section">
-            <div class="contact-block">
-                <div class="contact-img">
-                    <h2>Contact Us</h2>
-                    <p>どこへ越しても住みにくいと悟った時、詩が生れて、画が出来る。</p>
-                </div>
-                <div class="form-block">
-                    <form action="">
-                        <div class="form-block1">
-                            <div class="box1">
-                                <p>お問い合わせ種別</p>
-                                <select name="" id="">
-                                    <option value="">選択してください</option>
-                                </select>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="box2">
-                                <p>氏名</p>
-                                <span>必須</span>
-                                <input type="text" placeholder="  氏名">
-                            </div>
-                            <div class="box3">
-                                <p>フリガナ</p>
-                                <span>必須</span>
-                                <input type="text" placeholder="  フリガナ">
-                            </div>
-                            <div class="box4">
-                                <p>メールアドレス</p>
-                                <input type="text" placeholder="  sample@gmail.com">
-                            </div>
-                            <div class="box5">
-                                <p>性別</p>
-                                <input type="radio" name="gender" value="male">男性
-                                <input class="btn" type="radio" name="gender" value="male">女性
-                            </div>
-                            <div class="box6">
-                                <p>メッセージ</p>
-                                <textarea name="" id="" cols="126" rows="16"></textarea>
-                                <input type="checkbox"> 個人情報保護方針に同意する
-                                <button>送信する</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <footer>
-            <div class="footer-items">
-                <div class="footer-left">
-                    <div class="footer-item1">
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-facebook-square"></i>
-                    </div>
-                    <div class="footer-item2">
-                        <p>サイトマップ</p>
-                        <p class="item3">個人情報保護方針</p>
-                        <p>プライバシーポリシー</p>
-                    </div>
-                </div>
-                <div class="footer-right">
-                    <h2>HANIWAMAN Corp.</h2>
-                    <p>© Haniwaman Landing page Sample.</p>
-                </div>
-            </div>
-        </footer>
-
-
-
-
-
-
-
-
-
-    </div>
-    <!--js-->
-    <script src="/script.js"></script>
-    <!--Swiper-->
-    <script src="dist/js/swiper.js"></script>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:800px; height:700px">
+		<canvas id="canvas" width="800" height="700" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:800px; height:700px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
 </body>
-
 </html>
